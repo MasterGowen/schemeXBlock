@@ -1,0 +1,201 @@
+#modal_form {
+    width: 250px;
+    height: 100px; /* Рaзмеры дoлжны быть фиксирoвaны */
+    border-radius: 5px;
+    border: 2px #000 solid;
+    background: #fff;
+    position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
+    top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
+    left: 50%; /* пoлoвинa экрaнa слевa */
+    margin-top: -150px;
+    margin-left: -250px; /* тут вся мaгия центрoвки css, oтступaем влевo и вверх минус пoлoвину ширины и высoты сooтветственнo =) */
+    display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
+    opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
+    z-index: 5; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
+    padding: 20px 10px;
+}
+
+#modal_form #modal_close {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: block;
+}
+
+/*Модальное окно*/
+#modalDel, #modalRot, #modalpoint {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    width: 150px;
+}
+
+#modalOk:hover {
+    background-color: #555555;
+    color: white;
+}
+
+.prop1, .prop2, .prop3, .prop5 {
+    float: left;
+    margin-right: 10px;
+    width: 150px;
+}
+
+.graphPoint {
+    float: left;
+    margin-left: 10px;
+}
+
+.prop4 {
+    height: 30px;
+    width: 100px;
+}
+
+.prop5 {
+    height: 50px;
+    width: 150px;
+}
+
+.svgClass {
+    /*margin-right: 25px;*/
+    width: 750px;
+}
+
+.m0 {
+    height: 30px;
+}
+
+.Menu {
+    width: 64px;
+    height: 664px;
+    float: right;
+    background: #e8e8e8;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+}
+
+.container {
+    width: 818px;
+    height: 400px;
+    margin: 0 auto;
+    padding: 2px;
+}
+
+.tab-svg {
+    width: 750px;
+    border: 1px solid #e2e2e2;
+    float: left;
+    /*display: none;*/
+}
+
+.tab-result, .tab-Subresult {
+    display: none;
+    border: 1px solid #e2e2e2;
+    width: 750px;
+    /*background: red;*/
+    height: 500px;
+    float: left;
+
+}
+
+.menuButton {
+    cursor: pointer;
+    height: 50px;
+}
+
+.button-tab, .button-result, button-chart {
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border: 2px solid #e2e2e2;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: inline-block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+}
+
+#button-chart {
+    width: 200px;
+    text-align: center;
+}
+
+.title {
+    width: 200px;
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border: 2px solid #e2e2e2;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.valuesR1, .valuesC1, .values0, .valuesD1, .valuesC2 {
+    height: 200px;
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border: 2px solid #e2e2e2;
+}
+
+.graphProp {
+    height: 120px;
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border: 2px solid #e2e2e2;
+}
+
+#curve_chart {
+    height: 500px;
+}
+
+.tab-resultClickButton {
+    height: 30px;
+    width: 100px;
+    float: right;
+    margin: 10px;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.ShowNetlist {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.SubResutSettingLeft, .SubResutSettingRight {
+    width: 350px;
+    height: 200px;
+    float: left;
+    /*background: red;*/
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.SubResutSettingRight {
+    border-left: 3px solid #ccc;
+}
+
+.SettingsLine {
+    margin-bottom: 10px;
+}
+
+.SettingsLine div {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
+}
+
+.SettingsLine input, select {
+    width: 200px;
+}
+

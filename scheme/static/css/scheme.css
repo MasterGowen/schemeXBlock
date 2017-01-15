@@ -1,0 +1,9 @@
+/* CSS for SchemeXBlock */
+
+.scheme_block .count {
+    font-weight: bold;
+}
+
+.scheme_block p {
+    cursor: pointer;
+}

@@ -1,0 +1,481 @@
+<div class="scheme_block">
+<div class="container">
+    <div class="button-tab" id="button-construct" onclick="TabConstructClick()">
+        Конструктор электрической схемы
+    </div>
+
+    <div class="button-result" id="dd">
+        <p id="nameAnalytic">Расчет результатов</p>
+        <ul class="dropdown">
+            <li onclick="TabSubResult(this)" id="a1"><a href="#">DC</a></li>
+            <li onclick="TabSubResult(this)" id="a2"><a href="#">AC</a></li>
+            <li onclick="TabSubResult(this)" id="a3"><a href="#">Tran</a></li>
+        </ul>
+    </div>
+
+    <div class="button-tab" id="button-chart" onclick="TabResultClick()">
+        График
+    </div>
+
+    <div class="tab-result" id="tab-result">
+        <div id="curve_chart" ></div>
+        <div class="properties">
+            <div class="title">Свойства</div>
+            <div class="graphProp" id="graphProp">
+                <p class="graphPoint"> Точка 1 </p>
+                <input id="t1" type="text" size="20" class="graphPoint">
+                <p class="graphPoint"> Точка 2 </p>
+                <input id="t2" type="text" size="20" class="graphPoint">
+                <input id="saveGraph" type="button" size="20" class="graphPoint">
+            </div>
+        </div>
+        </div>
+    <div class="tab-Subresult" id="tab-Subresult">
+        <div id="SubResutSettingLeft" class="SubResutSettingLeft">
+            <div class="SettingsLine">
+                <div>Элемент</div>
+                <select id="PriborList" class="selectList">
+                </select>
+            </div>
+            <div class="SettingsLine">
+                <div>Начало</div>
+                <input type="text" id="SettingsLineBegin" oninput="InputChange()">
+            </div>
+            <div class="SettingsLine">
+                <div>Конец</div>
+                <input type="text" id="SettingsLineEnd" oninput="InputChange()">
+            </div>
+            <div class="SettingsLine">
+                <div>Шаг</div>
+                <input type="text" id="SettingsLineStep" oninput="InputChange()">
+            </div>
+        </div>
+        <div id="SubResutSettingRight" class="SubResutSettingRight">
+            <div class="SettingsLine">
+                <div> Точка съема</div>
+                <select id="PointList" class="selectList">
+                </select>
+            </div>
+        </div>
+
+        <textarea name="netlist" cols="91" rows="14" id="ShowNetlist" class="ShowNetlist"></textarea>
+        <button class="tab-resultClickButton" type="button" onclick="TabResultClick(this)">
+            Продолжить
+        </button>
+
+    </div>
+    <div class="Menu" id="Menu">
+        <div id="m0" class="m0">
+            <svg id="svgm1" class="svgClassM0" viewBox="0 0 30 30">
+                <!--<use xlink:href="#resistor1" id="toolM1" click="false" transform="scale(0.11,0.1)" x="140" y="190"/>-->
+            </svg>
+        </div>
+
+        <div id="m1" class="menuButton">
+            <svg id="svgm1" class="svgClassM1" viewBox="0 0 30 30">
+                <use xlink:href="#Mresistor1" id="toolM1" click="false" transform="scale(0.11,0.1)" x="140" y="120"/>
+            </svg>
+        </div>
+        <div id="m2" class="menuButton">
+            <svg id="svgm2" class="svgClassM2" viewBox="0 0 30 30">
+                <use xlink:href="#Mkondencator1" id="toolM2" click="false" transform="scale(0.11,0.1)" x="140" y="120"/>
+            </svg>
+        </div>
+        <div id="m3" class="menuButton">
+            <svg id="svgm3" class="svgClassM3" viewBox="0 0 30 30">
+                <use xlink:href="#Mkondencator2" id="toolM3" click="false" transform="scale(0.11,0.1)" x="140" y="120"/>
+            </svg>
+        </div>
+        <div id="m4" class="menuButton">
+            <svg id="svgm4" class="svgClassM4" viewBox="0 0 30 30">
+                <use xlink:href="#Mkondencator3" id="toolM4" click="false" transform="scale(0.11,0.1)" x="140" y="120"/>
+            </svg>
+        </div>
+        <div id="m5" class="menuButton">
+            <svg id="svgm5" class="svgClassM5" viewBox="0 0 30 30">
+                <use xlink:href="#Mdiod1" id="toolM5" click="false" transform="scale(0.11,0.1)" x="140" y="100"/>
+            </svg>
+        </div>
+    </div>
+    <div class="tab-svg" id="tab-svg">
+        <svg id="svg" class="svgClass" width="750" height="400" viewBox="0 0 750 400">
+            <g id="GridGroup">
+            </g>
+            <g id="svggroup">
+                <defs>
+                    <g id="resistor1">
+                        <rect x="-20" y="-50" width="40" height="100" transform="rotate(-90)" fill="#fff" stroke="#000"
+                              stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="50" x2="100" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <text x="-10" y="-30" font-size="35px" font-weight="bold">R</text>
+                        <circle cx="100" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n1"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <line x1="-50" x2="-100" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cx="-100" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n2"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <circle cx="-87" r="0" class="h2"/>
+                        <circle cx="87" r="0" class="h1"/>
+
+                    </g>
+                </defs>
+
+                </defs>
+
+                <defs>
+                    <g id="kondencator1">
+                        <text x="10" y="-30" font-size="35px" font-weight="bold">C</text>
+                        <line x1="40" y1="6.67" x2="-40" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="56.67" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="56.67" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n1"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <line x1="40" y1="-6.67" x2="-40" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="-56.67" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="-56.67" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n2"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <circle cy="-44" r="0" class="h2"/>
+                        <circle cy="44" r="0" class="h1"/>
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="kondencator2">
+                        <text x="10" y="-30" font-size="35px" font-weight="bold">C</text>
+                        <rect x="-7.5" y="-47.5" width="15" height="80" transform="translate(7.5 -7.5) rotate(-90)"
+                              fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="40" y1="15" x2="-40" y2="15" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="65" y2="15" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="65" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n1"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <line y1="-65" y2="-15" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="-65" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n2"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <circle cy="-52" r="0" class="h2"/>
+                        <circle cy="52" r="0" class="h1"/>
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="batary">
+                        <text x="10" y="-30" font-size="35px" font-weight="bold">V</text>
+                        <line x1="40" y1="6.67" x2="-40" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="56.67" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="56.67" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n1"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <line x1="20" y1="-6.67" x2="-20" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="-56.67" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <circle cy="-56.67" r="7.5" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="5"
+                                class="n2"
+                                onmousedown="PolyLineCreate(this)" onmouseover="MouseEnter(this)"
+                                onmouseout="MouseExit(this)"/>
+                        <circle cy="-44" r="0" class="h2"/>
+                        <circle cy="44" r="0" class="h1"/>
+
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="diod1">
+                        <text x="10" y="-30" font-size="35px" font-weight="bold">D</text>
+                        <g>
+                            <line fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="25.98" y1="-30" x2="25.98" y2="30"/>
+                            <line fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="25.98" y1="0" x2="75.98" y2="0"/>
+                            <line fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="-25.98" y1="0" x2="-75.98" y2="0"/>
+                            <circle fill="#FFFFFF" stroke="#fff" stroke-width="5" stroke-linejoin="round"
+                                    stroke-miterlimit="10" cx="75.98" cy="0" r="7.5" onmousedown="PolyLineCreate(this)"
+                                    onmouseover="MouseEnter(this)"
+                                    class="n1" onmouseout="MouseExit(this)"/>
+                            <circle fill="#FFFFFF" stroke="#fff" stroke-width="5" stroke-linejoin="round"
+                                    stroke-miterlimit="10" cx="-75.98" cy="0" r="7.5" onmousedown="PolyLineCreate(this)"
+                                    onmouseover="MouseEnter(this)"
+                                    class="n2" onmouseout="MouseExit(this)"/>
+                            <circle cx="-64.6" r="0" class="h2"/>
+                            <circle cx="64.6" r="0" class="h1"/>
+                        </g>
+                        <polygon fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                 stroke-miterlimit="10" points="25.98,0
+        -25.98152,30 -25.98152,-30  "/>
+                    </g>
+                </defs>
+
+
+                // для меню
+                <defs>
+                    <g id="Mresistor1">
+                        <rect x="-20" y="-50" width="40" height="100" transform="rotate(-90)" fill="#fff" stroke="#000"
+                              stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="50" x2="100" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="-50" x2="-100" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                    </g>
+                </defs>
+
+                </defs>
+
+                <defs>
+                    <g id="Mkondencator1">
+                        <line x1="40" y1="6.67" x2="-40" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="56.67" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="40" y1="-6.67" x2="-40" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="-56.67" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="Mkondencator2">
+                        <rect x="-7.5" y="-47.5" width="15" height="80" transform="translate(7.5 -7.5) rotate(-90)"
+                              fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="40" y1="15" x2="-40" y2="15" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="65" y2="15" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line y1="-65" y2="-15" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="Mkondencator3">
+                        <line x1="40" y1="6.67" x2="-40" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="56.67" y2="6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+                        <line x1="20" y1="-6.67" x2="-20" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10"
+                              stroke-width="5"/>
+                        <line y1="-56.67" y2="-6.67" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+
+                    </g>
+                </defs>
+
+                <defs>
+                    <g id="Mdiod1">
+                        <g>
+                            <line fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="25.98" y1="-30" x2="25.98" y2="30"/>
+                            <line fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="25.98" y1="0" x2="75.98" y2="0"/>
+                            <line fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                  stroke-miterlimit="10" x1="-25.98" y1="0" x2="-75.98" y2="0"/>
+                        </g>
+                        <polygon fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+                                 stroke-miterlimit="10" points="25.98,0
+        -25.98152,30 -25.98152,-30  "/>
+                    </g>
+                </defs>
+            </g>
+        </svg>
+
+        <div class="properties">
+            <div class="title">Свойства</div>
+
+            <div class="valuesR1" id="valuesR1">
+                <div class="prop1">
+                    <p> Сопротивление KOm </p>
+                    <input type="text" size="20" id="R1om" value="" oninput="PropChange()">
+                </div>
+                <div class="prop2">
+                    <p> Название </p>
+                    <input type="text" size="20" id="propNameR1" oninput="PropChange()" value="0.1">
+                </div>
+                <div>
+                    <p id="scaleText"> Масштаб 1 </p>
+                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
+                           class="prop5">
+                </div>
+                <div id="status">
+                </div>
+            </div>
+
+            <div class="valuesR1" id="valuesC1">
+                <div class="prop1">
+                    <p> Свойство 1 </p>
+                    <input id="propText" type="text" size="20">
+                </div>
+                <div class="prop2">
+                    <p> Свойство 2 </p>
+                    <input id="propText2" type="text" size="20" oninput="PropChange()">
+                </div>
+                <div class="prop3">
+                    <p> Свойство 3 </p>
+                    <input id="propText3" type="text" size="20">
+                </div>
+                <div>
+                    <p id="scaleText"> Масштаб 1 </p>
+                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
+                           class="prop5">
+                </div>
+                <div id="status">
+                </div>
+            </div>
+
+
+            <div class="valuesR1" id="valuesC2">
+                <div class="prop1">
+                    <p> Свойство 1 </p>
+                    <input id="propText" type="text" size="20">
+                </div>
+                <div class="prop2">
+                    <p> Свойство 2 </p>
+                    <input id="propText2" type="text" size="20" id="propName" oninput="PropChange()">
+                </div>
+                <div class="prop3">
+                    <p> Свойство 3 </p>
+                    <input id="propText3" type="text" size="20">
+                </div>
+
+                <div>
+                    <p id="scaleText"> Масштаб 1 </p>
+                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
+                           class="prop5">
+                </div>
+                <div id="status">
+                </div>
+            </div>
+
+            <div class="valuesR1" id="valuesV1">
+                <div class="prop1">
+                    <p> Напряжение </p>
+                    <input id="V1V" type="text" size="20" oninput="PropChange()">
+                </div>
+                <div class="prop2">
+                    <p> Название </p>
+                    <input type="text" size="20" id="propNameV1" oninput="PropChange()">
+                </div>
+                <!--<div class="prop3">-->
+                <!--<p> Свойство 3 </p>-->
+                <!--<input id="propText3" type="text" size="20">-->
+                <!--</div>-->
+            </div>
+            <div id="status">
+            </div>
+
+
+            <div class="valuesR1" id="valuesD1">
+                <div class="prop3">
+                    <p> BV</p>
+                    <input id="BVD1" type="text" size="20" oninput="PropChange()" value="660">
+                </div>
+                <div class="prop3">
+                    <p> CJO </p>
+                    <input type="text" size="20" id="CJOD1" oninput="PropChange()" value="9.23373E-011">
+                </div>
+                <div class="prop3">
+                    <p> FC </p>
+                    <input id="FCD1" type="text" size="20" oninput="PropChange()" value="0.5">
+                </div>
+                <div class="prop3">
+                    <p> IBV </p>
+                    <input id="IBVD1" type="text" size="20" oninput="PropChange()" value="0.5">
+                </div>
+                <div class="prop3">
+                    <p> IS </p>
+                    <input id="ISD1" type="text" size="20" oninput="PropChange()" value="1E-007">
+                </div>
+                <div class="prop3">
+                    <p> M </p>
+                    <input id="MD1" type="text" size="20" oninput="PropChange()" value="0.555439">
+                </div>
+                <div class="prop3">
+                    <p> N </p>
+                    <input id="ND1" type="text" size="20" oninput="PropChange()" value="2.27358">
+                </div>
+                <div class="prop3">
+                    <p> RS </p>
+                    <input id="RSD1" type="text" size="20" oninput="PropChange()" value="0.0372759">
+                </div>
+                <div class="prop3">
+                    <p> TT </p>
+                    <input id="TTD1" type="text" size="20" oninput="PropChange()" value="5.85747E-007">
+                </div>
+                <div class="prop3">
+                    <p> VJ </p>
+                    <input id="VJD1" type="text" size="20" oninput="PropChange()" value="2.92469">
+                </div>
+
+
+                <div id="status">
+                </div>
+            </div>
+
+            <div class="valuesR1" id="valuesPoint">
+                <!--<div class="prop1">-->
+                <!--<p> Свойство 1 </p>-->
+                <!--<input id="propText" type="text" size="20">-->
+                <!--</div>-->
+                <div class="prop2">
+                    <p> Название </p>
+                    <input type="text" size="20" id="propNamePoint" oninput="PropChange()">
+                </div>
+                <!--<div class="prop3">-->
+                <!--<p> Свойство 3 </p>-->
+                <!--<input id="propText3" type="text" size="20">-->
+                <!--</div>-->
+                <!--<div>-->
+                <!--<p> Свойство 5 </p>-->
+                <!--<button type="button" onclick="but()" class="prop4">-->
+                <!--Button-->
+                <!--</button>-->
+                <!--</div>-->
+                <div>
+                    <p id="scaleText"> Масштаб 1 </p>
+                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
+                           class="prop5">
+                </div>
+                <div id="status">
+                </div>
+            </div>
+
+
+            <div class="values0" id="values0">
+                <div>
+
+                    <p id="scaleText"> Масштаб 1 </p>
+                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
+                           class="prop5">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="modal_form"><!-- Модальное oкнo -->
+    <span id="modal_close">X</span> <!-- Кнoпкa зaкрыть -->
+    <!--<p> Свойство 1 </p>-->
+    <!--<input id="modalText" type="text" size="40">-->
+    <!--<p> Свойство 2 </p>-->
+    <!--<input id="modalText2" type="text" size="40">-->
+    <!--<p><b>Выберете мощность</b><Br>-->
+    <!--<input type="radio" name="browser" value="1"> Слабо<Br>-->
+    <!--<input type="radio" name="browser" value="2"> Нормлаьно<Br>-->
+    <!--<input type="radio" name="browser" value="3"> Сильно<Br>-->
+    <!--</p>-->
+    <br>
+    <button id="modalDel" onclick="Del()">Удалить</button>
+    <br>
+    <br>
+    <button id="modalRot" onclick="Rotate()">Повернуть</button>
+    <button id="modalpoint" onclick="CreateMeasurePoint()">Т. съема</button>
+</div>
+
+</div>
+</div>
