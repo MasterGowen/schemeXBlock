@@ -4,10 +4,14 @@
 
 import pkg_resources
 import datetime
+import json
 
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
+
+from webob.response import Response
+
 
 from .utils import (
     load_resource,
@@ -75,10 +79,7 @@ class SchemeXBlock(XBlock):
         js_urls = (
             "static/js/src/main.js",
             "static/js/src/loader.js",
-            "static/js/src/dropdown.js",
-            "static/js/src/SchemeAndSpice.js",
-            "static/js/src/MenuEvents.js",
-            "static/js/src/Sheme.js",
+            "static/js/src/scheme.js",
             )
 
         css_urls = (
@@ -95,15 +96,14 @@ class SchemeXBlock(XBlock):
     # TO-DO: change this handler to perform your own actions.  You may need more
     # than one handler, or you may not need any handlers at all.
     @XBlock.json_handler
-    def increment_count(self, data, suffix=''):
+    def spice_handler(self, data, suffix=''):
         """
         An example handler, which increments the data.
         """
         # Just to show data coming in...
-        assert data['hello'] == 'world'
+        response = Response(body=data, content_type='text/plain')
 
-        self.count += 1
-        return {"count": self.count}
+        return response
 
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.

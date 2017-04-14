@@ -72,16 +72,16 @@
     height: 30px;
 }
 
-.Menu {
+.LMenu {
     width: 64px;
-    height: 664px;
+    height: 667px;
     float: right;
     background: #e8e8e8;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
 }
 
-.container {
+.containerSVG {
     width: 818px;
     height: 400px;
     margin: 0 auto;
@@ -93,16 +93,25 @@
     border: 1px solid #e2e2e2;
     float: left;
     /*display: none;*/
+    
 }
 
-.tab-result, .tab-Subresult {
+.tab-Subresult {
     display: none;
     border: 1px solid #e2e2e2;
     width: 750px;
     /*background: red;*/
     height: 500px;
     float: left;
+}
 
+.tab-result{
+    display: none;
+    border: 1px solid #e2e2e2;
+    width: 750px;
+    /*background: red;*/
+    height: 653px;
+    float: left;
 }
 
 .menuButton {
@@ -124,11 +133,15 @@
 }
 
 #button-chart {
-    width: 200px;
+    width: 220px;
     text-align: center;
 }
 
-.title {
+.button-result{
+    width: 220px;
+}
+
+.Ltitle {
     width: 200px;
     background-color: #e8e8e8;
     padding: 2px 6px;
@@ -137,7 +150,14 @@
     border-top-right-radius: 4px;
 }
 
-.valuesR1, .valuesC1, .values0, .valuesD1, .valuesC2 {
+.valuesR1, .valuesC1,  .valuesD1, .valuesC2 {
+    height: 200px;
+    background-color: #e8e8e8;
+    padding: 2px 6px;
+    border: 2px solid #e2e2e2;
+    display: none;
+}
+.values0{
     height: 200px;
     background-color: #e8e8e8;
     padding: 2px 6px;
@@ -157,18 +177,21 @@
 
 .tab-resultClickButton {
     height: 30px;
-    width: 100px;
+    /*width: 100px;*/
     float: right;
     margin: 10px;
-    background-color: white;
-    color: black;
-    border: 2px solid #555555;
+    background-color: white !important;
+    color: black !important;
+    /*border: 2px solid #555555 !important;*/
+    font-size: 0.9em !important;
 }
 
 .ShowNetlist {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
+    height: 230px;
+    width: 730px;
 }
 
 .SubResutSettingLeft, .SubResutSettingRight {
@@ -197,5 +220,19 @@
 
 .SettingsLine input, select {
     width: 200px;
+}
+.nameAnalytic{
+    margin-bottom: 0px !important;
+}
+
+.scheme_block{
+    font-size: 0.9em;
+    width: 818px;
+    height: 400px;
+    margin-top: 10px;
+}
+.dropdownLi
+{
+    margin-bottom: 5px !important;
 }
 

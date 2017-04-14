@@ -579,3 +579,954 @@ function AddLine(x, y)
 }
 
 
+
+
+
+// ============================================================
+
+
+
+
+
+var ENTER;
+var AnaliseDevice = "";
+var Point = "";
+var Begin;
+var End;
+var Step;
+
+function Del()
+{
+    if (document.getElementById(ElemModal.getAttribute("point")) != null)
+        document.getElementById(ElemModal.getAttribute("point")).remove();
+    ElemModal.remove();
+    if (ElemModal.getAttribute("class") == "Lpoint")
+    {
+
+    }
+    CloseModal();
+    ElemModal = null;
+}
+
+function Rotate()
+{
+    tmp = ElemModal.getAttribute("transform");
+
+    switch (ElemModal.getAttribute("rotate"))
+    {
+        case  "1":
+            ElemModal.setAttribute("transform", tmp.toString() + " rotate(90)");
+            ElemModal.setAttribute("rotate", "2");
+            break;
+
+        case  "2":
+            ElemModal.setAttribute("transform", tmp.toString() + " rotate(90)");
+            ElemModal.setAttribute("rotate", "3");
+            break;
+
+        case  "3":
+            ElemModal.setAttribute("transform", tmp.toString() + " rotate(90)");
+            ElemModal.setAttribute("rotate", "4");
+            break;
+
+        case  "4":
+            ElemModal.setAttribute("transform", tmp.toString() + " rotate(90)");
+            ElemModal.setAttribute("rotate", "1");
+            break;
+
+    }
+
+    ElemModal.setAttribute("new", "1");
+    lineCorrect(ElemModal);
+    CloseModal();
+    ElemModal = null;
+
+
+}
+
+function MouseEnter(e)
+{
+    if (e.parentNode.parentNode.tagName == "g")
+    {
+        e.style.stroke = "#000000";
+        ENTER = true;
+    }
+}
+
+function MouseExit(e)
+{
+    if (e.parentNode.parentNode.tagName == "g" && ENTER)
+    {
+        e.style.stroke = "#ffffff";
+        ENTER = false;
+    }
+}
+
+
+function PolyLineCreate(e)
+{
+    if (CLC == null)
+    {
+        ENTER = false;
+        e.style.stroke = "#000000";
+
+        CLC = e;
+        var coords = document.getElementById("svg").getBoundingClientRect();
+        var line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+        line.setAttribute("id", LINECOUNT.toString() + "l");
+        line.setAttribute("class", "line");
+        var pos;
+        var x;
+        var y;
+        if (e.getAttribute("class") == "n1")
+        {
+            pos = e.parentNode.getElementsByClassName("h1")[0].getBoundingClientRect();
+        }
+        if (e.getAttribute("class") == "n2")
+        {
+            pos = e.parentNode.getElementsByClassName("h2")[0].getBoundingClientRect();
+        }
+
+        x = (pos.left - coords.left) / document.getElementById("size").value + SHIFT / document.getElementById("size").value;
+        y = (pos.top - coords.top) / document.getElementById("size").value + SHIFT / document.getElementById("size").value;
+
+        line.setAttribute("points", x.toString() + "," + y.toString());
+        line.setAttribute("lastx", x.toString());
+        line.setAttribute("lasty", y.toString());
+        line.setAttribute("stroke-width", 5);
+        line.oncontextmenu = function ()
+        {
+            return false;
+        }
+        line.addEventListener("contextmenu", function (e)
+        {
+            ElemModal = e.target;
+            $('#modalRot')
+                .css('display', 'none');
+            $('#modalpoint')
+                .css('display', 'block');
+            OpenModal();
+        });
+        line.setAttribute("stroke", "black");
+        line.setAttribute("fill", "none");
+        line.setAttribute("begin", e.id);
+        line.setAttribute("end", "");
+        line.setAttribute("measureId", "");
+        line.setAttribute("namePoint", LINECOUNT.toString());
+        LINECOUNT++;
+        SVG.appendChild(line);
+        CLC = line;
+    }
+    else
+    {
+        if (parseInt(CLC.getAttribute("begin")) != e.parentNode.id)
+        {
+            document.getElementById(CLC.getAttribute("begin")).style.stroke = "#ffffff";
+            ENTER = false;
+            e.style.stroke = "#ffffff";
+
+            var coords = document.getElementById("svg").getBoundingClientRect();
+            var lastx = parseFloat(CLC.getAttribute("lastx"));
+            var lasty = parseFloat(CLC.getAttribute("lasty"));
+            var pos;
+            var x;
+            var y;
+            if (e.getAttribute("class") == "n1")
+            {
+                pos = e.parentNode.getElementsByClassName("h1")[0].getBoundingClientRect();
+            }
+            if (e.getAttribute("class") == "n2")
+            {
+                pos = e.parentNode.getElementsByClassName("h2")[0].getBoundingClientRect();
+            }
+
+            x = (pos.left - coords.left) / document.getElementById("size").value + SHIFT / document.getElementById("size").value;
+            y = (pos.top - coords.top) / document.getElementById("size").value + SHIFT / document.getElementById("size").value;
+
+            AddLine(x, y);
+            CLC.setAttribute("end", e.id);
+            CLC = null;
+            COUNT++;
+        }
+    }
+}
+
+
+function CloseModal()
+{
+    $('#modal_form')
+        .animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+            function ()
+            { // пoсле aнимaции
+                $(this).css('display', 'none'); // делaем ему display: none;
+                $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+                CUR = null;
+            }
+        );
+}
+
+function OpenModal()
+{
+    $('#modal_form')
+        .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+        .animate({opacity: 1, top: '50%'}, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+}
+
+
+function createGrid()
+{
+    for (var i = -750; i < 1500; i = i + 40)
+    {
+        for (var j = -750; j < 1500; j = j + 40)
+        {
+            var cir = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            cir.setAttribute("r", 1);
+            cir.setAttribute("cy", i);
+            cir.setAttribute("cx", j);
+            document.getElementById('GridGroup').appendChild(cir);
+        }
+    }
+}
+
+function TabSubResult(e)
+{
+    var tabSvg = document.getElementById('tab-svg');
+    var menu = document.getElementById('Menu');
+    var tabSubResult = document.getElementById('tab-Subresult');
+    tabSvg.style.display = "none";
+    menu.style.display = "none";
+    tabSubResult.style.display = "block";
+    var tabResult = document.getElementById('tab-result');
+    tabResult.style.display = "none";
+
+    Begin = document.getElementById('SettingsLineBegin').value;
+    End = document.getElementById('SettingsLineEnd').value;
+    Step = document.getElementById('SettingsLineStep').value;
+
+    switch (e.id)
+    {
+        case "a1":
+            document.getElementById("nameAnalytic").innerHTML = "DC";
+            SelectFill();
+            SelectPoints();
+            param = "";
+            if (AnaliseDevice != "Не выбрано" && AnaliseDevice != undefined)
+            {
+                param = ".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V";
+
+            }
+            if (Point != "Не выбрано" && Point != undefined)
+            {
+                param += "\n.print dc v(" + Point + ")";
+            }
+            NETLIST = SearchElem(param);
+            // NETLIST = SearchElem(".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n.print dc v(" + Point + ")");
+            document.getElementById('ShowNetlist').value = NETLIST;
+            document.getElementById('dd').style.background = "#C5C5C5";
+            document.getElementById('button-construct').style.background = "#e8e8e8";
+            break;
+        case "a2":
+            document.getElementById("nameAnalytic").innerHTML = "AC";
+            NETLIST = SearchElem();
+            document.getElementById('dd').style.background = "#C5C5C5";
+            document.getElementById('button-construct').style.background = "#e8e8e8";
+            break;
+        case "a3":
+            document.getElementById("nameAnalytic").innerHTML = "Tran";
+            NETLIST = SearchElem();
+            document.getElementById('dd').style.background = "#C5C5C5";
+            document.getElementById('button-construct').style.background = "#e8e8e8";
+            break;
+    }
+}
+
+function TabResultClick(e)
+{
+    var tabSvg = document.getElementById('tab-svg');
+    var tabSubResult = document.getElementById('tab-Subresult');
+    var menu = document.getElementById('Menu');
+    var tabResult = document.getElementById('tab-result');
+    tabSvg.style.display = "none";
+    tabSubResult.style.display = "none";
+    menu.style.display = "none";
+    tabResult.style.display = "block";
+    document.getElementById('button-construct').style.background = "#e8e8e8";
+    document.getElementById('dd').style.background = "#e8e8e8";
+    document.getElementById('button-chart').style.background = "#C5C5C5";
+    NETLIST = document.getElementById('ShowNetlist').value;
+    SendNetlist();
+}
+
+function TabConstructClick(e)
+{
+    var tabSvg = document.getElementById('tab-svg');
+    var menu = document.getElementById('Menu');
+    var tabResult = document.getElementById('tab-result');
+    var tabSubResult = document.getElementById('tab-Subresult');
+    tabSubResult.style.display = "none";
+    tabSvg.style.display = "block";
+    menu.style.display = "block";
+    tabResult.style.display = "none";
+    document.getElementById('button-construct').style.background = "#C5C5C5";
+    document.getElementById('dd').style.background = "#e8e8e8";
+    // document.getElementById("nameAnalytic").innerHTML = "Расчет результатов";
+    document.getElementById('button-chart').style.background = "#e8e8e8";
+}
+
+
+function Settings()
+{
+    if (CUR.getAttribute("class") == "Lpoint")
+    {
+        document.getElementById("valuesPoint").style.display = "block";
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+        document.getElementById("propNamePoint").value = CUR.getAttribute("name");
+        this.e = CUR;
+    }
+    if (CUR.getAttribute("class") == "R1")
+    {
+        document.getElementById("valuesR1").style.display = "block";
+        document.getElementById("R1om").value = CUR.getAttribute("om");
+        document.getElementById("propNameR1").value = CUR.getAttribute("spiceName");
+
+
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+        this.e = CUR;
+
+    }
+    if (CUR.getAttribute("class") == "C1")
+    {
+        document.getElementById("valuesC1").style.display = "block";
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+        // document.getElementById("propNameC1").value = CUR.getAttribute("spiceName");
+        this.e = CUR;
+    }
+    if (CUR.getAttribute("class") == "D1")
+    {
+        document.getElementById("valuesD1").style.display = "block";
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        // document.getElementById("propNameD1").value = CUR.getAttribute("spiceName");
+        this.e = CUR;
+    }
+    if (CUR.getAttribute("class") == "C2")
+    {
+        document.getElementById("valuesC2").style.display = "block";
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        document.getElementById("propNameC2").value = CUR.getAttribute("spiceName");
+        document.getElementById("V1V").value = CUR.getAttribute("Volt");
+        this.e = CUR;
+    }
+
+    if (CUR.getAttribute("class") == "V1")
+    {
+        document.getElementById("valuesV1").style.display = "block";
+        document.getElementById("values0").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        document.getElementById("propNameV1").value = CUR.getAttribute("spiceName");
+        this.e = CUR;
+    }
+}
+
+function SelectFill()
+{
+
+    var list = SearchElemForSetting().split(" ");
+    var sum = "<option onclick='OptionClick(this)'>" + "Не выбрано" + "</option>";
+    for (i = 0; i < list.length - 1; i++)
+    {
+        if (list[i] != "")
+        {
+            sum += "<option onclick='OptionClick(this)'>" + list[i] + "</option>";
+        }
+
+    }
+    // if (list[0] != "")
+    // {
+    //     AnaliseDevice = list[0];
+    // }
+    AnaliseDevice = "Не выбрано";
+    $("#PriborList").empty();
+    $("#PriborList").append(sum);
+}
+
+function SelectPoints()
+{
+
+    var list = SearchElemPoints().split(" ");
+    var sum = "<option onclick='OptionClickPoint(this)'>" + "Не выбрано" + "</option>";
+    for (i = 0; i < list.length - 1; i++)
+    {
+        if (list[i] != "")
+            sum += "<option onclick='OptionClickPoint(this)'>" + list[i] + "</option>";
+    }
+    // if (list[0] != "")
+    // {
+    //     Point = list[0];
+    // }
+    Point = "Не выбрано";
+    $("#PointList").empty();
+    $("#PointList").append(sum);
+}
+
+function OptionClick(e)
+{
+    var pointSetting = "";
+    var deviceSetting = "";
+    if (e.innerHTML == "Не выбрано")
+    {
+        AnaliseDevice = "Не выбрано";
+    }
+    else
+    {
+        if (document.getElementsByName(e.innerHTML) != null)
+        {
+            AnaliseDevice = $("[spiceName = " + e.innerHTML + "]")[0].getAttribute("spiceName");
+        }
+        else
+        {
+            AnaliseDevice = e.innerHTML;
+
+        }
+    }
+
+    if (Point != "Не выбрано")
+    {
+        pointSetting = ".print dc v(" + Point + ")\n";
+    }
+    if (AnaliseDevice != "Не выбрано")
+    {
+        if (pointSetting != "Не выбрано")
+        {
+            deviceSetting = ".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n";
+        }
+        else
+        {
+            deviceSetting = ".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V";
+        }
+    }
+    NETLIST = SearchElem(deviceSetting + pointSetting);
+
+    // NETLIST = SearchElem(".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n.print dc v(" + Point + ")");
+    document.getElementById('ShowNetlist').value = NETLIST;
+}
+
+function OptionClickPoint(e)
+{
+    var pointSetting = "";
+    var deviceSetting = "";
+    if (e.innerHTML == "Не выбрано")
+    {
+        Point = "Не выбрано";
+    }
+    else
+    {
+        if (document.getElementsByName(e.innerHTML) != null)
+        {
+            Point = $("[name = " + e.innerHTML + "]")[0].getAttribute("lineParent");
+            Point = document.getElementById(Point.toString() + "l").getAttribute("namePoint");
+        }
+        else
+        {
+            Point = e.innerHTML;
+        }
+    }
+    if (Point != "Не выбрано")
+    {
+        pointSetting = ".print dc v(" + Point + ")\n";
+    }
+    if (AnaliseDevice != "Не выбрано")
+    {
+        if (pointSetting != "Не выбрано")
+        {
+            deviceSetting = ".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n";
+        }
+        else
+        {
+            deviceSetting = ".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V";
+        }
+    }
+    NETLIST = SearchElem(deviceSetting + pointSetting);
+
+    // NETLIST = SearchElem(".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n.print dc v(" + Point + ")");
+    document.getElementById('ShowNetlist').value = NETLIST;
+}
+
+function InputChange()
+{
+    Begin = document.getElementById('SettingsLineBegin').value;
+    End = document.getElementById('SettingsLineEnd').value;
+    Step = document.getElementById('SettingsLineStep').value;
+    NETLIST = SearchElem(".dc " + AnaliseDevice + " " + Begin + "V " + End + "V " + Step + "V\n.print dc v(" + Point + ")");
+    document.getElementById('ShowNetlist').value = NETLIST;
+    console.log(NETLIST);
+}
+
+function PropChange()
+{
+    // this.e;
+    // if (this.e.getElementsByTagName("text")[0] != undefined)
+    //     this.e.getElementsByTagName("text")[0].innerHTML = document.getElementById("propName").value;
+    if (this.e.getAttribute("class") == "R1")
+    {
+        this.e.getElementsByTagName("text")[0].innerHTML = document.getElementById("propNameR1").value;
+        this.e.setAttribute("om", document.getElementById("R1om").value);
+        this.e.setAttribute("spiceName", document.getElementById("propNameR1").value);
+    }
+    if (this.e.getAttribute("class") == "V1")
+    {
+        this.e.setAttribute("Volt", document.getElementById("V1V").value);
+        this.e.getElementsByTagName("text")[0].innerHTML = document.getElementById("propNameV1").value;
+        this.e.setAttribute("spiceName", document.getElementById("propNameV1").value);
+    }
+    if (this.e.getAttribute("class") == "Lpoint")
+    {
+        this.e.setAttribute("name", document.getElementById("propNamePoint").value);
+        document.getElementById(this.e.getAttribute("lineParent") + "l").setAttribute("namePoint", document.getElementById("propNamePoint").value);
+    }
+}
+
+function CreateMeasurePoint()
+{
+    var id = ElemModal.getAttribute("id").toString().split("l")[0];
+    var elem = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    elem.setAttribute("id", id + "p");
+    elem.setAttribute("r", "8");
+    elem.setAttribute("cy", ElemModal.getAttribute("points").split(" ")[1].split(",")[1]);
+    elem.setAttribute("cx", ElemModal.getAttribute("points").split(" ")[1].split(",")[0]);
+    ElemModal.setAttribute("point", id + "p");
+    elem.setAttribute("class", "Lpoint");
+    elem.setAttribute("name", id);
+    elem.setAttribute("lineParent", id);
+    elem.addEventListener("mousedown", function (e)
+    {
+        if (e.which == 1)
+        {
+            CUR = e.target;
+            Settings();
+        }
+        e.ondragstart = function ()
+        {
+            return false;
+        };
+    });
+    SVG.appendChild(elem);
+    CloseModal();
+}
+
+function PointCorrect(e)
+{
+    point = document.getElementById(e.getAttribute("point"));
+    point.setAttribute("cy", e.getAttribute("points").split(" ")[1].split(",")[1]);
+    point.setAttribute("cx", e.getAttribute("points").split(" ")[1].split(",")[0]);
+}
+
+function CololElem()
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================
+
+
+// n - порядковый номер элемента. общий для всех
+// (n)Rx - резистор постоянный
+// (n)Cx - конденсатор постоянной емкости
+// (n)Dx - диод
+// kondencator1 - Конд постоянной емкости
+// kondencator2 - Конд электролитический поляризованный
+// kondencator3 - Конд электролитический неполяризованный
+// kondencator4 - Конд переменной емкости
+
+var LINECOUNT = 0;
+var masGraph = [];
+var NETLIST = "";
+
+function SearchElemForSetting()
+{
+    var list = "";
+    var device = new Array(document.getElementsByClassName('R1'), document.getElementsByClassName('D1'), document.getElementsByClassName('C1'), document.getElementsByClassName('V1'), document.getElementsByClassName('C2'));
+
+    for (i = 0; i < device.length; i++)
+    {
+        if (device[i] != undefined)
+        {
+            if (device[i][0] != undefined)
+            {
+                for (j = 0; j < device[i].length; j++)
+                {
+                    if (device[i][j] != undefined)
+                    {
+                        list = list + device[i][j].getAttribute("spiceName") + " ";
+                    }
+
+                }
+            }
+        }
+    }
+    // console.log(list);
+    return list;
+}
+
+function SearchElemPoints()
+{
+    var list = "";
+    var device = new Array(document.getElementsByClassName('Lpoint'));
+
+    for (i = 0; i < device.length; i++)
+    {
+        if (device[i] != undefined)
+        {
+            if (device[i][0] != undefined)
+            {
+                for (j = 0; j < device[i].length; j++)
+                {
+                    if (device[i][j] != undefined)
+                    {
+                        list = list + device[i][j].getAttribute("name") + " ";
+                    }
+
+                }
+            }
+        }
+    }
+
+    return list;
+}
+
+
+function SearchElem(paramAnalis)
+{
+    var list = "";
+    var line = document.getElementsByClassName('line');
+    var device = new Array(document.getElementsByClassName('R1'), document.getElementsByClassName('D1'), document.getElementsByClassName('C1'), document.getElementsByClassName('V1'), document.getElementsByClassName('C2'));
+
+    for (i = 0; i < device.length; i++)
+    {
+        if (device[i] != undefined)
+        {
+            if (device[i][0] != undefined)
+            {
+                for (j = 0; j < device[i].length; j++)
+                {
+                    if (device[i][j] != undefined)
+                    {
+                        list = list + "\n" + device[i][0].getAttribute("spiceName");
+                        id = device[i][j].getAttribute("id");
+                        var firstPoint = "";
+                        var secondPoint = "";
+                        for (k = 0; k < line.length; k++)
+                        {
+                            if (line[k] != undefined)
+                            {
+                                idK = line[k].getAttribute("id");
+                                if (line[k].getAttribute("begin").substring(0, line[k].getAttribute("begin").length - 3) == id || line[k].getAttribute("end").substring(0, line[k].getAttribute("end").length - 3) == id)
+                                {
+                                    if (((line[k].getAttribute("begin").substring(0, line[k].getAttribute("begin").length - 3) == id) && (line[k].getAttribute("begin").substring(line[k].getAttribute("begin").length - 3, line[k].getAttribute("begin").length) == "228") || (line[k].getAttribute("end").substring(0, line[k].getAttribute("end").length - 3) == id ) && line[k].getAttribute("end").substring(line[k].getAttribute("end").length - 3, line[k].getAttribute("end").length) == "228"))
+                                    {
+                                        firstPoint = line[k].getAttribute("namePoint");
+                                    }
+
+                                    if (((line[k].getAttribute("begin").substring(0, line[k].getAttribute("begin").length - 3) == id) && (line[k].getAttribute("begin").substring(line[k].getAttribute("begin").length - 3, line[k].getAttribute("begin").length) == "229") || (line[k].getAttribute("end").substring(0, line[k].getAttribute("end").length - 3) == id ) && line[k].getAttribute("end").substring(line[k].getAttribute("end").length - 3, line[k].getAttribute("end").length) == "229"))
+                                    {
+                                        secondPoint = line[k].getAttribute("namePoint");
+                                        // secondPoint = document.getElementById(idK).getAttribute("namePoint");
+                                    }
+                                }
+                            }
+                        }
+                        if (firstPoint != "")
+                            list = list + " " + firstPoint;
+                        if (secondPoint != "")
+                            list = list + " " + secondPoint;
+                        firstPoint = "";
+                        secondPoint = "";
+                        if (device[i][0].getAttribute("class") == "R1") // параметры элемента
+                            list = list + " " + device[i][0].getAttribute("om") + "k";
+                        if (device[i][0].getAttribute("class") == "V1") // параметры элемента
+                            list = list + " dc " + device[i][0].getAttribute("Volt");
+                        if (device[i][0].getAttribute("class") == "D1") // параметры элемента
+                            list = list + " D1N3491";
+                    }
+
+                }
+            }
+        }
+    }
+    BV = document.getElementById("BVD1").value;
+    CJO = document.getElementById("CJOD1").value;
+    FC = document.getElementById("FCD1").value;
+    IBV = document.getElementById("IBVD1").value;
+    IS = document.getElementById("ISD1").value;
+    M = document.getElementById("MD1").value;
+    N = document.getElementById("ND1").value;
+    RS = document.getElementById("RSD1").value;
+    TT = document.getElementById("TTD1").value;
+    VJ = document.getElementById("VJD1").value;
+    list = list + "\n.MODEL D1N3491 D (BV="+BV+ " CJO="+CJO+" FC="+FC+" IBV="+IBV+" IS="+IS+" M="+M+" N="+N+" RS="+RS+" TT="+TT+" VJ="+VJ+")\n" + paramAnalis + ".end";
+    return list;
+}
+
+function SendNetlist()
+{
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        method: "POST",
+        url: "http://media.ls.urfu.ru:8002/analyse/",
+        data: {netlist: NETLIST, csrfmiddlewaretoken: csrftoken}
+    })
+        .done(function (response)
+        {
+            if (response.status == 'success')
+            {
+                var result = document.createElement('p');
+                for (var i = 0; i < response.stdout.length; i++)
+                {
+                    result.innerHTML += response.stdout[i];
+                    result.innerHTML += '<br />';
+                }
+                console.log("RESULT    " + result);
+            }
+            else
+            {
+                var listData;
+                var stop = false;
+                listData = JSON.parse(response).stdout;
+                masGraph = new Array;
+                for (i = 0; i < listData.length; i++)
+                {
+                    if (listData[i].toString()[0] == "0")
+                    {
+                        j = i;
+                        while (!stop)
+                        {
+                            masGraph.push(listData[j].toString());
+                            if (listData[j].toString() == "")
+                            {
+                                stop = true;
+                                masGraph.pop();
+                            }
+                            j++;
+                        }
+                    }
+                }
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+            }
+        })
+        .fail(function ()
+        {
+            console.log("E1");
+        });
+
+    console.log("NETLIST   \n" + NETLIST);
+
+}
+
+
+// ============================================================
+
+var chart;
+
+var lastSelect = [2];
+function drawChart()
+{
+
+    var point = false;
+    var data2 = [['V', 'I']];
+
+    document.getElementById("t1").value = "";
+    document.getElementById("t2").value = "";
+
+    for (i = 0; i < masGraph.length; i++)
+    {
+        data2[i + 1] = [Number(masGraph[i].toString().split("\t")[1]), Number(masGraph[i].toString().split("\t")[2])];
+        // console.log(Number(masGraph[i].toString().split("\t")[1]), Number(masGraph[i].toString().split("\t")[2]) + "\n")
+    }
+
+    var data = google.visualization.arrayToDataTable(data2);
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'Day');
+    data.addColumn('number', 'Guardians of the Galaxy');
+    data.addColumn('number', 'The Avengers');
+    data.addColumn('number', 'Transformers: Age of Extinction');
+
+    data.addRows([
+        [1, 37.8, 80.8, 41.8],
+        [2, 30.9, 69.5, 32.4],
+        [3, 25.4, 57, 25.7],
+        [4, 11.7, 18.8, 10.5],
+        [5, 11.9, 17.6, 10.4],
+        [6, 8.8, 13.6, 7.7],
+        [7, 7.6, 12.3, 9.6],
+        [8, 12.3, 29.2, 10.6],
+        [9, 16.9, 42.9, 14.8],
+        [10, 12.8, 30.9, 11.6],
+        [11, 5.3, 7.9, 4.7],
+        [12, 6.6, 8.4, 5.2],
+        [13, 4.8, 6.3, 3.6],
+        [14, 4.2, 6.2, 3.4]
+    ]);
+
+    var options = {
+        title: 'График',
+        curveType: 'function',
+        width: 818,
+        height: 500,
+        // hAxis: {
+        //     format: 'scientific'
+        // },
+        // VAxis: {
+        //     format: 'scientific'
+        // },
+        chartArea: {
+            width: 640,
+            height: 450
+        },
+        animation: {
+            startup: true,
+            duration: 1000,
+            easing: 'inAndOut'
+        },
+        explorer: {
+            actions: ['dragToZoom', 'rightClickToReset'],
+            maxZoomIn: 0.1
+        },
+        // selectionMode: 'multiple',
+        // aggregationTarget: 'auto',
+
+    };
+
+    function clickChart()
+    {
+        var selectedItem = chart.getSelection();
+        if (selectedItem.length > 0)
+        {
+            if (lastSelect.length >= 2)
+            {
+                lastSelect.shift();
+            }
+
+            lastSelect.push({
+                row: selectedItem[selectedItem.length - 1].row,
+                column: selectedItem[selectedItem.length - 1].column
+            });
+            chart.setSelection(lastSelect);
+
+            if (typeof lastSelect[0] == "object")
+            {
+                document.getElementById("t1").value = data.getValue(lastSelect[0].row, 0) + ";" + data.getValue(lastSelect[0].row, lastSelect[0].column);
+                document.getElementById("t2").value = data.getValue(lastSelect[1].row, 0) + ";" + data.getValue(lastSelect[1].row, lastSelect[1].column);
+            }
+            else
+            {
+                document.getElementById("t1").value = data.getValue(lastSelect[1].row, 0) + ";" + data.getValue(lastSelect[1].row, lastSelect[1].column);
+            }
+        }
+    }
+
+
+    chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    google.visualization.events.addListener(chart, 'select', clickChart);
+
+
+    chart.draw(data, options);
+}
+
+function clear()
+{
+
+}
+
+// =========================================
+
+
+
+
+
+
+
+function DropDown(el) {
+    this.dd = el;
+    this.initEvents();
+}
+DropDown.prototype = {
+    initEvents : function() {
+        var obj = this;
+
+        obj.dd.on('click', function(event){
+            $(this).toggleClass('active');
+            event.stopPropagation();
+        });
+    }
+}
+
+$(function() {
+
+    var dd = new DropDown( $('#dd') );
+
+    $(document).click(function() {
+        // all dropdowns
+        $('.button-result').removeClass('active');
+    });
+
+});
+
+
+
+// ====================================================================
+

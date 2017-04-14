@@ -1,15 +1,15 @@
 <div class="scheme_block">
-<div class="container">
+<button class="Test">ОЛОЛО!</button>
     <div class="button-tab" id="button-construct" onclick="TabConstructClick()">
         Конструктор электрической схемы
     </div>
 
     <div class="button-result" id="dd">
-        <p id="nameAnalytic">Расчет результатов</p>
+        <p id="nameAnalytic" class="nameAnalytic">Расчет результатов</p>
         <ul class="dropdown">
-            <li onclick="TabSubResult(this)" id="a1"><a href="#">DC</a></li>
-            <li onclick="TabSubResult(this)" id="a2"><a href="#">AC</a></li>
-            <li onclick="TabSubResult(this)" id="a3"><a href="#">Tran</a></li>
+            <li onclick="TabSubResult(this)" class="dropdownLi" id="a1"><a href="#">DC</a></li>
+            <li onclick="TabSubResult(this)" class="dropdownLi" id="a2"><a href="#">AC</a></li>
+            <li onclick="TabSubResult(this)" class="dropdownLi" id="a3"><a href="#">Tran</a></li>
         </ul>
     </div>
 
@@ -20,7 +20,7 @@
     <div class="tab-result" id="tab-result">
         <div id="curve_chart" ></div>
         <div class="properties">
-            <div class="title">Свойства</div>
+            <div class="Ltitle">Свойства</div>
             <div class="graphProp" id="graphProp">
                 <p class="graphPoint"> Точка 1 </p>
                 <input id="t1" type="text" size="20" class="graphPoint">
@@ -64,7 +64,7 @@
         </button>
 
     </div>
-    <div class="Menu" id="Menu">
+    <div class="LMenu" id="Menu">
         <div id="m0" class="m0">
             <svg id="svgm1" class="svgClassM0" viewBox="0 0 30 30">
                 <!--<use xlink:href="#resistor1" id="toolM1" click="false" transform="scale(0.11,0.1)" x="140" y="190"/>-->
@@ -285,7 +285,7 @@
         </svg>
 
         <div class="properties">
-            <div class="title">Свойства</div>
+            <div class="Ltitle">Свойства</div>
 
             <div class="valuesR1" id="valuesR1">
                 <div class="prop1">
@@ -448,10 +448,7 @@
             <div class="values0" id="values0">
                 <div>
 
-                    <p id="scaleText"> Масштаб 1 </p>
-                    <input type="range" min="0.5" max="1.5" step="0.1" oninput="scale()" id="size" value="1"
-                           class="prop5">
-                </div>
+                                    </div>
             </div>
         </div>
     </div>
@@ -477,5 +474,4 @@
     <button id="modalpoint" onclick="CreateMeasurePoint()">Т. съема</button>
 </div>
 
-</div>
 </div>
