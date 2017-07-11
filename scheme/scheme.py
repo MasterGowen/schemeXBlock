@@ -135,15 +135,15 @@ class SchemeXBlock(XBlock):
         data = json.loads(data)
         netlist = data["netlist"]
 
-        try:
-            stdout = subprocess.check_output(
-                'echo "{0}" | ngspice -b'.format(netlist),
-                stderr=subprocess.STDOUT,
-                shell=True
-            )
-            stdout = stdout.decode("utf-8").split('\n')
-        except:
-            stdout = ""
+
+        stdout = subprocess.check_output(
+            'echo "{0}" | ngspice -b'.format(netlist),
+            stderr=subprocess.STDOUT,
+            shell=True
+        )
+        stdout = stdout.decode("utf-8").split('\n')
+        print(stdout)
+
 
         response = Response(body=stdout, content_type='text/plain')
 
