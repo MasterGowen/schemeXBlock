@@ -14,6 +14,8 @@ from xblock.fragment import Fragment
 
 from webob.response import Response
 
+import subprocess
+
 
 from .utils import (
     load_resource,
@@ -130,11 +132,20 @@ class SchemeXBlock(XBlock):
     # than one handler, or you may not need any handlers at all.
     @XBlock.json_handler
     def spice_handler(self, data, suffix=''):
-        """
-        An example handler, which increments the data.
-        """
-        # Just to show data coming in...
-        response = Response(body=data, content_type='text/plain')
+        data = json.loads(data)
+        netlist = data["netlist"]
+
+        try:
+            stdout = subprocess.check_output(
+                'echo "{0}" | ngspice -b'.format(netlist),
+                stderr=subprocess.STDOUT,
+                shell=True
+            )
+            stdout = stdout.decode("utf-8").split('\n')
+        except:
+            stdout = ""
+
+        response = Response(body=stdout, content_type='text/plain')
 
         return response
 
