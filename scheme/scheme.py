@@ -6,6 +6,8 @@ import pkg_resources
 import datetime
 import json
 
+import django.utils.translation
+
 from xblock.core import XBlock
 from xblock.fields import Scope, Integer
 from xblock.fragment import Fragment
@@ -93,6 +95,37 @@ class SchemeXBlock(XBlock):
         fragment.initialize_js('SchemeXBlock')
         return fragment
 
+    def studio_view(self, context=None):
+        """
+        The primary view of the SchemeXBlock, shown to students
+        when viewing courses.
+        """
+
+        fragment = Fragment()
+        fragment.add_content(
+            render_template(
+                "static/html/scheme.html",
+                context
+            )
+        )
+
+        js_urls = (
+            "static/js/src/main.js",
+            "static/js/src/loader.js",
+            "static/js/src/scheme.js",
+            )
+
+        css_urls = (
+            "static/css/scheme.css",
+            "static/css/dropdown.css",
+            "static/css/main.css",
+            )
+
+        load_resources(js_urls, css_urls, fragment)
+
+        fragment.initialize_js('SchemeXBlock')
+        return fragment
+
     # TO-DO: change this handler to perform your own actions.  You may need more
     # than one handler, or you may not need any handlers at all.
     @XBlock.json_handler
@@ -104,6 +137,8 @@ class SchemeXBlock(XBlock):
         response = Response(body=data, content_type='text/plain')
 
         return response
+
+    icon_class = "problem"
 
     # TO-DO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
