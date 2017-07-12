@@ -5,40 +5,42 @@ function SchemeXBlock(runtime, element) {
     spiceHandler = runtime.handlerUrl(element, 'spice_handler');
 }
 
+$(function($) {
 
-var CUR = null; //нажатый элемент
-var COUNT = 0; // ID элементов
-var R1 = 1;
-var C1 = 1;
-var D1 = 1;
-var V1 = 1;
-var CLC = null; // для соединения точками
-var ElemModal = null;
-var SVG;
-var NEWELEM = null;
-var SHIFT = 0;
+    var CUR = null; //нажатый элемент
+    var COUNT = 0; // ID элементов
+    var R1 = 1;
+    var C1 = 1;
+    var D1 = 1;
+    var V1 = 1;
+    var CLC = null; // для соединения точками
+    var ElemModal = null;
+    var SVG;
+    var NEWELEM = null;
+    var SHIFT = 0;
 
-SVG = document.getElementById('svggroup');
-document.getElementById('m1').addEventListener("click", function() {
-    NEWELEM = "R1";
-});
-document.getElementById('m2').addEventListener("click", function() {
-    NEWELEM = "C1";
-});
-document.getElementById('m3').addEventListener("click", function() {
-    NEWELEM = "C2";
-});
-document.getElementById('m4').addEventListener("click", function() {
-    NEWELEM = "V1";
-});
-document.getElementById('m5').addEventListener("click", function() {
-    NEWELEM = "D1";
-});
-document.getElementById('button-construct').style.background = "#C5C5C5";
-document.getElementById("svg").oncontextmenu = function() {
-    return false;
+    SVG = document.getElementById('svggroup');
+    document.getElementById('m1').addEventListener("click", function () {
+        NEWELEM = "R1";
+    });
+    document.getElementById('m2').addEventListener("click", function () {
+        NEWELEM = "C1";
+    });
+    document.getElementById('m3').addEventListener("click", function () {
+        NEWELEM = "C2";
+    });
+    document.getElementById('m4').addEventListener("click", function () {
+        NEWELEM = "V1";
+    });
+    document.getElementById('m5').addEventListener("click", function () {
+        NEWELEM = "D1";
+    });
+    document.getElementById('button-construct').style.background = "#C5C5C5";
+    document.getElementById("svg").oncontextmenu = function () {
+        return false;
+    }
+    createGrid();
 }
-createGrid();
 
 $('#modal_close, #overlay').click(function() {
     CloseModal();
