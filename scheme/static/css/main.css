@@ -1,17 +1,17 @@
 #modal_form {
     width: 250px;
-    height: 100px; /* Рaзмеры дoлжны быть фиксирoвaны */
+    height: 100px; /* Р aР·РјРµСЂС‹ РґoР»Р¶РЅС‹ Р±С‹С‚СЊ С„РёРєСЃРёСЂoРІaРЅС‹ */
     border-radius: 5px;
     border: 2px #000 solid;
     background: #fff;
-    position: fixed; /* чтoбы oкнo былo в видимoй зoне в любoм месте */
-    top: 45%; /* oтступaем сверху 45%, oстaльные 5% пoдвинет скрипт */
-    left: 50%; /* пoлoвинa экрaнa слевa */
+    position: fixed; /* С‡С‚oР±С‹ oРєРЅo Р±С‹Р»o РІ РІРёРґРёРјoР№ Р·oРЅРµ РІ Р»СЋР±oРј РјРµСЃС‚Рµ */
+    top: 45%; /* oС‚СЃС‚СѓРїaРµРј СЃРІРµСЂС…Сѓ 45%, oСЃС‚aР»СЊРЅС‹Рµ 5% РїoРґРІРёРЅРµС‚ СЃРєСЂРёРїС‚ */
+    left: 50%; /* РїoР»oРІРёРЅa СЌРєСЂaРЅa СЃР»РµРІa */
     margin-top: -150px;
-    margin-left: -250px; /* тут вся мaгия центрoвки css, oтступaем влевo и вверх минус пoлoвину ширины и высoты сooтветственнo =) */
-    display: none; /* в oбычнoм сoстoянии oкнa не дoлжнo быть */
-    opacity: 0; /* пoлнoстью прoзрaчнo для aнимирoвaния */
-    z-index: 5; /* oкнo дoлжнo быть нaибoлее бoльшем слoе */
+    margin-left: -250px; /* С‚СѓС‚ РІСЃСЏ РјaРіРёСЏ С†РµРЅС‚СЂoРІРєРё css, oС‚СЃС‚СѓРїaРµРј РІР»РµРІo Рё РІРІРµСЂС… РјРёРЅСѓСЃ РїoР»oРІРёРЅСѓ С€РёСЂРёРЅС‹ Рё РІС‹СЃoС‚С‹ СЃooС‚РІРµС‚СЃС‚РІРµРЅРЅo =) */
+    display: none; /* РІ oР±С‹С‡РЅoРј СЃoСЃС‚oСЏРЅРёРё oРєРЅa РЅРµ РґoР»Р¶РЅo Р±С‹С‚СЊ */
+    opacity: 0; /* РїoР»РЅoСЃС‚СЊСЋ РїСЂoР·СЂaС‡РЅo РґР»СЏ aРЅРёРјРёСЂoРІaРЅРёСЏ */
+    z-index: 5; /* oРєРЅo РґoР»Р¶РЅo Р±С‹С‚СЊ РЅaРёР±oР»РµРµ Р±oР»СЊС€РµРј СЃР»oРµ */
     padding: 20px 10px;
 }
 
@@ -25,7 +25,7 @@
     display: block;
 }
 
-/*Модальное окно*/
+/*РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ*/
 #modalDel, #modalRot, #modalpoint {
     padding-left: 40px;
     padding-right: 40px;
@@ -74,7 +74,7 @@
 
 .LMenu {
     width: 64px;
-    height: 667px;
+    height: 664px;
     float: right;
     background: #e8e8e8;
     border: 1px solid #e2e2e2;
@@ -93,25 +93,17 @@
     border: 1px solid #e2e2e2;
     float: left;
     /*display: none;*/
-    
+
 }
 
-.tab-Subresult {
+.tab-result, .tab-Subresult {
     display: none;
     border: 1px solid #e2e2e2;
     width: 750px;
     /*background: red;*/
     height: 500px;
     float: left;
-}
 
-.tab-result{
-    display: none;
-    border: 1px solid #e2e2e2;
-    width: 750px;
-    /*background: red;*/
-    height: 653px;
-    float: left;
 }
 
 .menuButton {
@@ -133,12 +125,8 @@
 }
 
 #button-chart {
-    width: 220px;
+    width: 200px;
     text-align: center;
-}
-
-.button-result{
-    width: 220px;
 }
 
 .Ltitle {
@@ -177,13 +165,12 @@
 
 .tab-resultClickButton {
     height: 30px;
-    /*width: 100px;*/
+    width: 100px;
     float: right;
     margin: 10px;
-    background-color: white !important;
-    color: black !important;
-    /*border: 2px solid #555555 !important;*/
-    font-size: 0.9em !important;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
 }
 
 .ShowNetlist {
@@ -223,16 +210,5 @@
 }
 .nameAnalytic{
     margin-bottom: 0px !important;
-}
-
-.scheme_block{
-    font-size: 0.9em;
-    width: 818px;
-    height: 400px;
-    margin-top: 10px;
-}
-.dropdownLi
-{
-    margin-bottom: 5px !important;
 }
 

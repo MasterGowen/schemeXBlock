@@ -1,17 +1,13 @@
 /* Javascript for SchemeXBlock. */
 function SchemeXBlock(runtime, element) {
 
+    function updateCount(result) {
+        $('.count', element).text(result.count);
+    }
 
-    var spiceHandler = runtime.handlerUrl(element,'spice_handler');
 
-    $(element).find('.Test').bind('click', function() {
-        $.ajax({
-            type: "POST",
-            url: spiceHandler,
-            data: JSON.stringify('{"netlist": "lol"}'),
-            success: console.log("ok")
-        });
+
+    $(function ($) {
+        /* Here's where you'd do things on page load. */
     });
-
-
 }
