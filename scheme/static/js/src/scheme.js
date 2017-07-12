@@ -16,48 +16,47 @@ function SchemeXBlock(runtime, element) {
         var NEWELEM = null;
         var SHIFT = 0;
 
-        window.onload = function() {
-            SVG = document.getElementById('svggroup');
-            document.getElementById('m1').addEventListener("click", function() {
-                NEWELEM = "R1";
-            });
-            document.getElementById('m2').addEventListener("click", function() {
-                NEWELEM = "C1";
-            });
-            document.getElementById('m3').addEventListener("click", function() {
-                NEWELEM = "C2";
-            });
-            document.getElementById('m4').addEventListener("click", function() {
-                NEWELEM = "V1";
-            });
-            document.getElementById('m5').addEventListener("click", function() {
-                NEWELEM = "D1";
-            });
-            document.getElementById('button-construct').style.background = "#C5C5C5";
-            document.getElementById("svg").oncontextmenu = function() {
-                return false;
-            }
-            createGrid();
-
-            $('#modal_close, #overlay').click(function() {
-                CloseModal();
-            });
-            document.getElementById("SettingsLineBegin").value = "";
-
-            document.getElementById("valuesR1").style.display = "none";
-            document.getElementById("valuesPoint").style.display = "none";
-            document.getElementById("valuesC1").style.display = "none";
-            document.getElementById("valuesC2").style.display = "none";
-            document.getElementById("valuesD1").style.display = "none";
-            document.getElementById("valuesV1").style.display = "none";
-
-            document.getElementById("SettingsLineBegin").value = 0;
-            document.getElementById("SettingsLineEnd").value = 2;
-            document.getElementById("SettingsLineStep").value = 0.01;
-            document.getElementById("R1om").value = 0.1;
-            document.getElementById("V1V").value = 2;
-
+        SVG = document.getElementById('svggroup');
+        document.getElementById('m1').addEventListener("click", function() {
+            NEWELEM = "R1";
+        });
+        document.getElementById('m2').addEventListener("click", function() {
+            NEWELEM = "C1";
+        });
+        document.getElementById('m3').addEventListener("click", function() {
+            NEWELEM = "C2";
+        });
+        document.getElementById('m4').addEventListener("click", function() {
+            NEWELEM = "V1";
+        });
+        document.getElementById('m5').addEventListener("click", function() {
+            NEWELEM = "D1";
+        });
+        document.getElementById('button-construct').style.background = "#C5C5C5";
+        document.getElementById("svg").oncontextmenu = function() {
+            return false;
         }
+        createGrid();
+
+        $('#modal_close, #overlay').click(function() {
+            CloseModal();
+        });
+        document.getElementById("SettingsLineBegin").value = "";
+
+        document.getElementById("valuesR1").style.display = "none";
+        document.getElementById("valuesPoint").style.display = "none";
+        document.getElementById("valuesC1").style.display = "none";
+        document.getElementById("valuesC2").style.display = "none";
+        document.getElementById("valuesD1").style.display = "none";
+        document.getElementById("valuesV1").style.display = "none";
+
+        document.getElementById("SettingsLineBegin").value = 0;
+        document.getElementById("SettingsLineEnd").value = 2;
+        document.getElementById("SettingsLineStep").value = 0.01;
+        document.getElementById("R1om").value = 0.1;
+        document.getElementById("V1V").value = 2;
+
+
 
         $(document).keydown(function(e) {
             if (e.keyCode === 27) {
