@@ -2,7 +2,7 @@
 function SchemeXBlock(runtime, element) {
     var spiceHandler = runtime.handlerUrl(element, 'spice_handler');
 
-    $(function($) {
+    window.onload = function() {
         var CUR = null; //нажатый элемент
         var COUNT = 0; // ID элементов
         var R1 = 1;
