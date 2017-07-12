@@ -2,7 +2,8 @@
 function SchemeXBlock(runtime, element) {
     var spiceHandler = runtime.handlerUrl(element, 'spice_handler');
 
-    window.onload = function() {
+
+    $(function($) {
         var CUR = null; //нажатый элемент
         var COUNT = 0; // ID элементов
         var R1 = 1;
@@ -323,7 +324,6 @@ function SchemeXBlock(runtime, element) {
                 if (e.which == 1 && !ENTER) {
                     CUR = e.target.parentNode;
                     Settings();
-
                 }
                 e.ondragstart = function() {
                     return false;

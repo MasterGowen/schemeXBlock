@@ -81,8 +81,6 @@ class SchemeXBlock(XBlock):
         )
 
         js_urls = (
-            "static/js/src/main.js",
-            # "static/js/src/loader.js",
             "static/js/src/scheme.js",
             )
 
