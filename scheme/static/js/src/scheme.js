@@ -59,92 +59,93 @@ $(function($) {
     document.getElementById("R1om").value = 0.1;
     document.getElementById("V1V").value = 2;
 
-});
 
-$(document).keydown(function(e) {
-    if (e.keyCode === 27) {
-        if (CLC) {
-            document.getElementById(CLC.getAttribute("begin")).style.stroke = "#ffffff";
-            CLC.remove();
-            ENTER = false;
+
+    $(document).keydown(function(e) {
+        if (e.keyCode === 27) {
+            if (CLC) {
+                document.getElementById(CLC.getAttribute("begin")).style.stroke = "#ffffff";
+                CLC.remove();
+                ENTER = false;
+                CLC = null;
+            }
+        }
+    });
+
+    document.onmousemove = function(e) {
+        if (NEWELEM == "R1") {
+            createElem("resistor1", e);
+        }
+
+        if (NEWELEM == "C1") {
+            createElem("kondencator1", e);
+        }
+
+        if (NEWELEM == "C2") {
+            createElem("kondencator2", e);
+        }
+
+        if (NEWELEM == "V1") {
+            createElem("batary", e);
+        }
+
+        if (NEWELEM == "D1") {
+            createElem("diod1", e);
+        }
+
+        if (CUR != null && !ENTER) {
+            var coords = document.getElementById("svg").getBoundingClientRect();
+            var x = (Number(e.clientX - coords.left) / document.getElementById("size").value) + SHIFT / document.getElementById("size").value;
+            var y = (Number(e.clientY - coords.top) / document.getElementById("size").value) + SHIFT / document.getElementById("size").value;
+            var cx;
+            var cy;
+
+            cx = x - parseFloat(CUR.getAttribute('x'));
+            cy = parseFloat(CUR.getAttribute('y')) + y;
+
+            CUR.setAttribute('transform', 'translate(' + cx + ' ' + cy + ')');
+            tmp = CUR.getAttribute("transform");
+            if (CUR.getAttribute("new") != "0") {
+                if (parseInt(CUR.getAttribute("rotate")) == "1") {
+                    CUR.setAttribute("transform", tmp.toString() + " rotate(0)");
+                }
+                if (parseInt(CUR.getAttribute("rotate")) == "2") {
+                    CUR.setAttribute("transform", tmp.toString() + " rotate(90)");
+                }
+                if (parseInt(CUR.getAttribute("rotate")) == "3") {
+                    CUR.setAttribute("transform", tmp.toString() + " rotate(180)");
+                }
+                if (parseInt(CUR.getAttribute("rotate")) == "4") {
+                    CUR.setAttribute("transform", tmp.toString() + " rotate(270)");
+                }
+            } else {
+                CUR.setAttribute('transform', 'translate(' + cx + ' ' + cy + ')');
+            }
+
+
+            lineCorrect(CUR);
             CLC = null;
         }
-    }
+    };
+
+    document.onmouseup = function(e) {
+        if (e.which == 1) {
+            if (CUR != null) {
+                var x = parseInt(CUR.getAttribute("x"));
+                var y = parseInt(CUR.getAttribute("y"));
+                if (x % 40 != 0) {
+                    x = x + x % 40;
+                }
+                if (y % 40 != 0) {
+                    y = y + y % 40;
+                }
+                CUR.setAttribute("x", x);
+                CUR.setAttribute("y", y);
+            }
+        }
+        CUR = null;
+    };
 });
-
-document.onmousemove = function(e) {
-    if (NEWELEM == "R1") {
-        createElem("resistor1", e);
-    }
-
-    if (NEWELEM == "C1") {
-        createElem("kondencator1", e);
-    }
-
-    if (NEWELEM == "C2") {
-        createElem("kondencator2", e);
-    }
-
-    if (NEWELEM == "V1") {
-        createElem("batary", e);
-    }
-
-    if (NEWELEM == "D1") {
-        createElem("diod1", e);
-    }
-
-    if (CUR != null && !ENTER) {
-        var coords = document.getElementById("svg").getBoundingClientRect();
-        var x = (Number(e.clientX - coords.left) / document.getElementById("size").value) + SHIFT / document.getElementById("size").value;
-        var y = (Number(e.clientY - coords.top) / document.getElementById("size").value) + SHIFT / document.getElementById("size").value;
-        var cx;
-        var cy;
-
-        cx = x - parseFloat(CUR.getAttribute('x'));
-        cy = parseFloat(CUR.getAttribute('y')) + y;
-
-        CUR.setAttribute('transform', 'translate(' + cx + ' ' + cy + ')');
-        tmp = CUR.getAttribute("transform");
-        if (CUR.getAttribute("new") != "0") {
-            if (parseInt(CUR.getAttribute("rotate")) == "1") {
-                CUR.setAttribute("transform", tmp.toString() + " rotate(0)");
-            }
-            if (parseInt(CUR.getAttribute("rotate")) == "2") {
-                CUR.setAttribute("transform", tmp.toString() + " rotate(90)");
-            }
-            if (parseInt(CUR.getAttribute("rotate")) == "3") {
-                CUR.setAttribute("transform", tmp.toString() + " rotate(180)");
-            }
-            if (parseInt(CUR.getAttribute("rotate")) == "4") {
-                CUR.setAttribute("transform", tmp.toString() + " rotate(270)");
-            }
-        } else {
-            CUR.setAttribute('transform', 'translate(' + cx + ' ' + cy + ')');
-        }
-
-
-        lineCorrect(CUR);
-        CLC = null;
-    }
-};
-
-document.onmouseup = function(e) {
-    if (e.which == 1) {
-        if (CUR != null) {
-            var x = parseInt(CUR.getAttribute("x"));
-            var y = parseInt(CUR.getAttribute("y"));
-            if (x % 40 != 0) {
-                x = x + x % 40;
-            }
-            if (y % 40 != 0) {
-                y = y + y % 40;
-            }
-            CUR.setAttribute("x", x);
-            CUR.setAttribute("y", y);
-        }
-    }
-    CUR = null;
-};
 
 function lineCorrect(link) {
     if (!CLC) {
