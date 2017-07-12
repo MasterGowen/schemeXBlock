@@ -349,7 +349,7 @@ function createElem(type, e) {
 
     SVG.appendChild(elem);
     COUNT = COUNT + 1;
-    NEWELEM = null;
+    var NEWELEM = null;
     CUR = elem;
 }
 
