@@ -145,7 +145,7 @@ $(function($) {
         }
         CUR = null;
     };
-});
+
 
 function lineCorrect(link) {
     if (!CLC) {
@@ -1319,5 +1319,7 @@ $(function() {
         // all dropdowns
         $('.button-result').removeClass('active');
     });
+
+});
 
 });
