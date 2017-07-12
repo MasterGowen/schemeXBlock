@@ -40,27 +40,26 @@ $(function($) {
         return false;
     }
     createGrid();
+
+    $('#modal_close, #overlay').click(function() {
+        CloseModal();
+    });
+    document.getElementById("SettingsLineBegin").value = "";
+
+    document.getElementById("valuesR1").style.display = "none";
+    document.getElementById("valuesPoint").style.display = "none";
+    document.getElementById("valuesC1").style.display = "none";
+    document.getElementById("valuesC2").style.display = "none";
+    document.getElementById("valuesD1").style.display = "none";
+    document.getElementById("valuesV1").style.display = "none";
+
+    document.getElementById("SettingsLineBegin").value = 0;
+    document.getElementById("SettingsLineEnd").value = 2;
+    document.getElementById("SettingsLineStep").value = 0.01;
+    document.getElementById("R1om").value = 0.1;
+    document.getElementById("V1V").value = 2;
+
 });
-
-$('#modal_close, #overlay').click(function() {
-    CloseModal();
-});
-document.getElementById("SettingsLineBegin").value = "";
-
-document.getElementById("valuesR1").style.display = "none";
-document.getElementById("valuesPoint").style.display = "none";
-document.getElementById("valuesC1").style.display = "none";
-document.getElementById("valuesC2").style.display = "none";
-document.getElementById("valuesD1").style.display = "none";
-document.getElementById("valuesV1").style.display = "none";
-
-document.getElementById("SettingsLineBegin").value = 0;
-document.getElementById("SettingsLineEnd").value = 2;
-document.getElementById("SettingsLineStep").value = 0.01;
-document.getElementById("R1om").value = 0.1;
-document.getElementById("V1V").value = 2;
-
-
 
 $(document).keydown(function(e) {
     if (e.keyCode === 27) {
