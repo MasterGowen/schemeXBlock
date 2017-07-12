@@ -20,27 +20,27 @@ $(function($) {
     var SHIFT = 0;
 
     SVG = document.getElementById('svggroup');
-    document.getElementById('m1').addEventListener("click", function () {
+    document.getElementById('m1').addEventListener("click", function() {
         NEWELEM = "R1";
     });
-    document.getElementById('m2').addEventListener("click", function () {
+    document.getElementById('m2').addEventListener("click", function() {
         NEWELEM = "C1";
     });
-    document.getElementById('m3').addEventListener("click", function () {
+    document.getElementById('m3').addEventListener("click", function() {
         NEWELEM = "C2";
     });
-    document.getElementById('m4').addEventListener("click", function () {
+    document.getElementById('m4').addEventListener("click", function() {
         NEWELEM = "V1";
     });
-    document.getElementById('m5').addEventListener("click", function () {
+    document.getElementById('m5').addEventListener("click", function() {
         NEWELEM = "D1";
     });
     document.getElementById('button-construct').style.background = "#C5C5C5";
-    document.getElementById("svg").oncontextmenu = function () {
+    document.getElementById("svg").oncontextmenu = function() {
         return false;
     }
     createGrid();
-}
+});
 
 $('#modal_close, #overlay').click(function() {
     CloseModal();
